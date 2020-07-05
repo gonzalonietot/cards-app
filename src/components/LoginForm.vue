@@ -78,7 +78,7 @@
     },
     methods: {
       createAccount () {
-        this.$router.push({name: 'Registration'})
+        this.$emit('create')
       }
     }
   }

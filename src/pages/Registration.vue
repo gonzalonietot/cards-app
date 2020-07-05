@@ -1,5 +1,5 @@
 <template>
-  <registration-form />
+  <registration-form v-on:success="createdUser" />
 </template>
 
 <script>
@@ -8,6 +8,11 @@
     name: 'Registration',
     components: {
       RegistrationForm
+    },
+    methods: {
+      createdUser () {
+        this.$router.push('Login')
+      }
     }
   }
 </script>

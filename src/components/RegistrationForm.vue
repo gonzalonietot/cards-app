@@ -50,7 +50,7 @@
                 <v-text-field
                   v-model="user.email"
                   label="Email"
-                  :rules="[rules.required]"
+                  :rules="rules.emailRules"
                   name="email"
                   required
                 />
@@ -76,6 +76,32 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-snackbar
+        v-model="successUser"
+        :bottom="y === 'bottom'"
+        :color="color"
+        :left="x === 'left'"
+        :multi-line="mode === 'multi-line'"
+        :right="x === 'right'"
+        :timeout="timeout"
+        :top="y === 'top'"
+        :vertical="mode === 'vertical'"
+    >
+      Usuario creado
+    </v-snackbar>
+    <v-snackbar
+        v-model="errorUser"
+        :bottom="y === 'bottom'"
+        :color="color"
+        :left="x === 'left'"
+        :multi-line="mode === 'multi-line'"
+        :right="x === 'right'"
+        :timeout="timeout"
+        :top="y === 'top'"
+        :vertical="mode === 'vertical'"
+    >
+      Ya existe usuario
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -90,7 +116,18 @@
         rules: {
           required: v => !!v || 'Este campo es requerido',
           maxPassword: v => v && v.length <= 25 || 'Se ha superado el máximo permitido',
-        }
+          emailRules: [
+            v => !!v || 'Email es requerido',
+            v => /.+@.+\..+/.test(v) || 'Email incorrecto',
+          ],
+        },
+        color: 'blue',
+        mode: '',
+        x: null,
+        y: 'top',
+        timeout: 3000,
+        successUser: false,
+        errorUser: false
       }
     },
     methods: {
@@ -99,8 +136,18 @@
       },
       async createUser () {
         try {
-          await userApi.createUser(this.user)
+          if (this.$refs.form.validate()) {
+            const response = await userApi.createUser(this.user)
+            if (response && response.data) {
+              this.successUser = true
+              setTimeout(() => {
+                this.$emit('success')
+              }, 3000)
+              this.$refs.form.reset()
+            }
+          }
         } catch (e) {
+          this.errorUser = true
         }
       }
     }

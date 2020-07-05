@@ -1,5 +1,5 @@
 <template>
-  <login-form />
+  <login-form v-on:create="createAccount" />
 </template>
 
 <script>
@@ -8,6 +8,11 @@
     name: 'Login',
     components: {
       LoginForm
+    },
+    methods: {
+      createAccount () {
+        this.$router.push('Registration')
+      }
     }
   }
 </script>
