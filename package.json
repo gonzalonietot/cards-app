@@ -1,0 +1,56 @@
+{
+  "name": "portafolio",
+  "author": "gonzalo nieto",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "core-js": "^3.6.4",
+    "vue": "^2.6.11",
+    "vuetify": "2.0.11"
+  },
+  "devDependencies": {
+    "@mdi/font": "^5.0.45",
+    "@vue/cli-plugin-babel": "^4.2.0",
+    "@vue/cli-plugin-eslint": "^4.2.0",
+    "@vue/cli-service": "^4.2.0",
+    "babel-eslint": "^10.0.3",
+    "emailjs-com": "^2.4.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-config-vuetify": "*",
+    "eslint-plugin-vue": "^7.0.0-alpha.0",
+    "sass": "^1.25.0",
+    "sass-loader": "^7.3.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "vue-cli-plugin-eslint-config-vuetify": "latest",
+    "vue-cli-plugin-vuetify": "latest",
+    "vue-router": "^3.1.5",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.0.5"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
