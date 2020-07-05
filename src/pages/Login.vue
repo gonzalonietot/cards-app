@@ -11,7 +11,7 @@
     },
     methods: {
       createAccount () {
-        this.$router.push('Registration')
+        this.$router.push({name: 'Registration'})
       }
     }
   }

@@ -43,7 +43,7 @@
                 />
                 <v-text-field
                   v-model="user.documento"
-                  :rules="[rules.required]"
+                  :rules="[rules.document]"
                   label="Documento"
                   required
                 />
@@ -116,6 +116,7 @@
         rules: {
           required: v => !!v || 'Este campo es requerido',
           maxPassword: v => v && v.length <= 25 || 'Se ha superado el máximo permitido',
+          document: v => /^[0-9]+$/.test(v) || 'El documento solo admite números',
           emailRules: [
             v => !!v || 'Email es requerido',
             v => /.+@.+\..+/.test(v) || 'Email incorrecto',

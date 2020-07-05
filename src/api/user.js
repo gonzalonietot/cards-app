@@ -1,7 +1,7 @@
-import axios from 'axios'
+import Api from './config_axios'
 
 export default {
   createUser (data) {
-    return axios.post('http://localhost:3000/api/user/', data)
+    return Api.post('api/user/', data)
   }
 }
