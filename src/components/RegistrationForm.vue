@@ -42,19 +42,13 @@
                   required
                 />
                 <v-text-field
-                  v-model="user.documento"
-                  :rules="[rules.document]"
-                  label="Documento"
-                  required
-                />
-                <v-text-field
                   v-model="user.email"
                   label="Email"
                   :rules="rules.emailRules"
+                  @blur="checkUser"
                   name="email"
                   required
                 />
-
                 <v-text-field
                   v-model="user.password"
                   label="Contraseña"
@@ -64,6 +58,9 @@
                   :type="showPassword ? 'text' : 'password'"
                   @click:append="showPassword = !showPassword"
                 />
+                <v-alert type="error" v-model="userExists">
+                  Ya existe un usuario con estos datos
+                </v-alert>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -100,7 +97,7 @@
         :top="y === 'top'"
         :vertical="mode === 'vertical'"
     >
-      Ya existe usuario
+      Falló el registro del usuario
     </v-snackbar>
   </v-app>
 </template>
@@ -116,7 +113,6 @@
         rules: {
           required: v => !!v || 'Este campo es requerido',
           maxPassword: v => v && v.length <= 25 || 'Se ha superado el máximo permitido',
-          document: v => /^[0-9]+$/.test(v) || 'El documento solo admite números',
           emailRules: [
             v => !!v || 'Email es requerido',
             v => /.+@.+\..+/.test(v) || 'Email incorrecto',
@@ -128,16 +124,23 @@
         y: 'top',
         timeout: 3000,
         successUser: false,
-        errorUser: false
+        errorUser: false,
+        userExists: false
       }
     },
     methods: {
       goBack () {
         this.$router.push({name: 'Login'})
       },
+      async checkUser () {
+        if (this.user.email) {
+          const user = await userApi.checkUser({email: this.user.email})
+          this.userExists = !!user.data
+        }
+      },
       async createUser () {
         try {
-          if (this.$refs.form.validate()) {
+          if (!this.userExists && this.$refs.form.validate()) {
             const response = await userApi.createUser(this.user)
             if (response && response.data) {
               this.successUser = true

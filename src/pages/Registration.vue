@@ -11,7 +11,7 @@
     },
     methods: {
       createdUser () {
-        this.$router.push('Login')
+        this.$router.push({name: 'Login'})
       }
     }
   }
