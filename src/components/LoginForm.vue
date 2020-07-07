@@ -46,7 +46,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn color="teal darken-2" dark class="button">
+              <v-btn color="teal darken-2" dark class="button" @click="loginSuccess">
                 Ingresar
               </v-btn>
               <v-btn color="teal darken-2" dark class="button" @click="createAccount">
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   export default {
     name: 'LoginForm',
     data: () => {
@@ -74,11 +75,17 @@
         }
       }
     },
+    computed: {
+      ...mapGetters(['authenticated'])
+    },
     mounted () {
     },
     methods: {
       createAccount () {
         this.$emit('create')
+      },
+      async loginSuccess () {
+        await this.$store.dispatch('signIn', {email: this.email, password: this.password})
       }
     }
   }
