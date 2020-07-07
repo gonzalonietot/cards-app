@@ -12,10 +12,8 @@ Vue.use(Vuetify)
 
 new Vue({
   mounted () {
-    const accessAllowed = false
-    if(!accessAllowed) {
-      this.$router.push({name: 'Login'}).catch(() => {})
-    }
+    const token = localStorage.getItem('token')
+    store.commit('AuthUser', token)
   },
   render: h => h(App),
   router,

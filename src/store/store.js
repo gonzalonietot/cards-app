@@ -16,6 +16,7 @@ export default new Vuex.Store({
   actions: {
     signIn({ commit }, { email, password }) {
       userApi.loginUser({email, password}).then((response) => {
+        console.log(response.data,'eeeeeeeeeeeeeee')
         saveToken(response.data.token, commit)
       }).catch((response) => {
         commit('AuthError', response.data)
@@ -23,8 +24,8 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    AuthUser(state) {
-      state.authenticated = true
+    AuthUser(state, value) {
+      state.authenticated = !!value
       state.authError = null
     },
     AuthError(state, e) {
@@ -35,5 +36,5 @@ export default new Vuex.Store({
 
 function saveToken(token, commit) {
   localStorage.setItem('token', token)
-  commit('AuthUser')
+  commit('AuthUser', token)
 }

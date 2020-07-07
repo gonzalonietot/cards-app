@@ -61,7 +61,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapState} from 'vuex'
   export default {
     name: 'LoginForm',
     data: () => {
@@ -76,7 +76,7 @@
       }
     },
     computed: {
-      ...mapGetters(['authenticated'])
+      ...mapState(['authenticated'])
     },
     mounted () {
     },
@@ -84,8 +84,10 @@
       createAccount () {
         this.$emit('create')
       },
-      async loginSuccess () {
-        await this.$store.dispatch('signIn', {email: this.email, password: this.password})
+      loginSuccess () {
+        this.$store.dispatch('signIn', {email: this.email, password: this.password}).then((response) => {
+          this.$router.push('/')
+        })
       }
     }
   }
