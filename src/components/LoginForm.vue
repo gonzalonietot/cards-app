@@ -23,16 +23,18 @@
               <v-spacer />
             </v-toolbar>
             <v-card-text>
-              <v-form>
+              <v-form
+                  ref="form"
+                  lazy-validation
+              >
                 <v-text-field
                   v-model="email"
                   label="Email"
-                  :rules="[rules.required]"
+                  :rules="rules.emailRules"
                   name="email"
                   :append-icon="'mdi-account'"
                   type="text"
                 />
-
                 <v-text-field
                   v-model="password"
                   label="Contraseña"
@@ -42,6 +44,9 @@
                   :type="showPassword ? 'text' : 'password'"
                   @click:append="showPassword = !showPassword"
                 />
+                <v-alert type="error" v-model="wrongEmailOrPassword">
+                  Email o contraseña incorrectos
+                </v-alert>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -72,7 +77,12 @@
         rules: {
           required: v => !!v || 'Este campo es requerido',
           maxPassword: v => v ? v && v.length <= 25 || 'Se ha superado el máximo permitido' : '',
-        }
+          emailRules: [
+            v => !!v || 'Email es requerido',
+            v => /.+@.+\..+/.test(v) || 'Email incorrecto'
+          ]
+        },
+        wrongEmailOrPassword: false
       }
     },
     computed: {
@@ -85,9 +95,15 @@
         this.$emit('create')
       },
       loginSuccess () {
-        this.$store.dispatch('signIn', {email: this.email, password: this.password}).then((response) => {
-          this.$router.push('/')
-        })
+        if (this.$refs.form.validate()) {
+          this.$store.dispatch('signIn', {email: this.email, password: this.password}).then(() => {
+            if (this.authenticated) {
+              this.$router.push('/')
+            } else {
+              this.wrongEmailOrPassword = true
+            }
+          })
+        }
       }
     }
   }

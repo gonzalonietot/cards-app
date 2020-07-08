@@ -15,8 +15,7 @@ export default new Vuex.Store({
   },
   actions: {
     signIn({ commit }, { email, password }) {
-      userApi.loginUser({email, password}).then((response) => {
-        console.log(response.data,'eeeeeeeeeeeeeee')
+      return userApi.loginUser({email, password}).then((response) => {
         saveToken(response.data.token, commit)
       }).catch((response) => {
         commit('AuthError', response.data)

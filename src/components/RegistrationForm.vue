@@ -115,8 +115,8 @@
           maxPassword: v => v && v.length <= 25 || 'Se ha superado el máximo permitido',
           emailRules: [
             v => !!v || 'Email es requerido',
-            v => /.+@.+\..+/.test(v) || 'Email incorrecto',
-          ],
+            v => /.+@.+\..+/.test(v) || 'Email incorrecto'
+          ]
         },
         color: 'blue',
         mode: '',
