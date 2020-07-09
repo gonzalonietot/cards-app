@@ -21,6 +21,10 @@ export default new Vuex.Store({
         commit('AuthError', response.data)
       })
     },
+    signOff({commit}) {
+      commit('AuthLogout')
+    }
+
   },
   mutations: {
     AuthUser(state, value) {
@@ -29,7 +33,13 @@ export default new Vuex.Store({
     },
     AuthError(state, e) {
       state.authError = e
+    },
+    AuthLogout (state, value) {
+      localStorage.removeItem('token')
+      state.authenticated = !!value
+      state.authError = null
     }
+
   },
 })
 
