@@ -37,10 +37,10 @@
         <span>Cerrar sesión</span>
       </v-tooltip>
     </v-toolbar>
-    <home-form v-if="showCard" :show.sync="showCard" />
     <div class="home-form">
       <home-card v-for="(items, index) in mensaje" :key="index" :message="items" />
     </div>
+    <home-form v-if="showCard" :show.sync="showCard" />
   </div>
 </template>
 <script>
@@ -55,7 +55,8 @@
     },
     data () {
       return {
-        mensaje: ['Hola Hola Hola Hola Hola HolaHola Hola HolaHola Hola Hola', 'Chau', 'Hola', 'Chau', 'Hola', 'Chau','Hola', 'Chau'],
+        mensaje: ['HolaHola Hola HolaHola Hola HolaHola Hola Hola Hola Hola HolaHola Hola HolaHola Hola HolaHola Hola Hola Hola Hola HolaHola Hola HolaHola Hola Hola HolaHola Hola HolaHola Hola HolaHola  HolaHola Hola HolaHola Hola HolaHola ',
+          'Chau', 'Hola', 'Chau', 'Hola', 'Chau','Hola', 'Chau'],
         showCard: false
       }
     },

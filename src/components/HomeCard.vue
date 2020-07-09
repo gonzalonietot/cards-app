@@ -16,7 +16,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>Descripción:</v-list-item-title>
-          <v-list-item-subtitle class="text--primary">{{message}}</v-list-item-subtitle>
+          <v-list-item-action-text>{{message}}</v-list-item-action-text>
         </v-list-item-content>
       </v-list-item>
       <v-divider />
@@ -45,7 +45,7 @@
 <style scoped>
   .card-form {
     width: 300px;
-    height: 250px;
+    max-height: 300px;
     margin-left: 30px;
     margin-top: 10px;
   }

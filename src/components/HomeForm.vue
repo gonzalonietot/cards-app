@@ -24,12 +24,9 @@
               ref="form"
               lazy-validation
           >
-            <v-autocomplete
-                v-model="task.tipo"
-                label="Tipo de tarea"
-                :items="items"
-                item-text="descripcion"
-                item-value="id"
+            <v-text-field
+                v-model="task.titulo"
+                label="Título"
             />
             <v-text-field
                 v-model="task.descripcion"
@@ -59,19 +56,6 @@
         },
         valid: true
       }
-    },
-    computed: {
-      items () {
-        return [
-          {'id': 1, 'descripcion': 'Nota'},
-          {'id': 2, 'descripcion': 'Tarea'},
-          {'id': 3, 'descripcion': 'Recordatorio'}
-        ]
-      }
-    },
-    mounted () {
-      console.log(this.items)
-      this.task.tipo = this.items[0].id
     },
     methods: {
       closeForm () {
