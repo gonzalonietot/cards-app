@@ -15,7 +15,7 @@
         >
           <v-card class="elevation-24">
             <v-toolbar
-              color="blue-grey"
+              color="#3F51B5"
               dark
               flat
             >
@@ -51,10 +51,10 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn color="blue-grey" dark class="button" @click="loginSuccess">
+              <v-btn color="#3F51B5" dark class="button" @click="loginSuccess">
                 Ingresar
               </v-btn>
-              <v-btn color="blue-grey" dark class="button" @click="createAccount">
+              <v-btn color="#3F51B5" dark class="button" @click="createAccount">
                 Crear cuenta
               </v-btn>
             </v-card-actions>

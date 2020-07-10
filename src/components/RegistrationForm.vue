@@ -15,7 +15,7 @@
         >
           <v-card class="elevation-24">
             <v-toolbar
-              color="blue-grey"
+              color="#3F51B5"
               dark
               flat
             >
@@ -65,7 +65,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn color="blue-grey" dark @click="createUser()">
+              <v-btn color="#3F51B5" dark @click="createUser()">
                 Crear usuario
               </v-btn>
             </v-card-actions>

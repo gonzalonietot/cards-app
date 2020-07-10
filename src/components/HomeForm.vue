@@ -27,14 +27,25 @@
               <v-text-field
                   v-model="task.titulo"
                   label="Título"
+                  required
+                  type="text"
+                  :rules="[rules.required, rules.maxTitle]"
               />
-              <v-text-field
+              <v-textarea
                   v-model="task.descripcion"
                   label="Descripcion"
                   type="text"
+                  required
+                  :rules="[rules.required, rules.maxDescription]"
               />
             </v-form>
           </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn icon color="#3F51B5" @click="saveCard">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-overlay>
@@ -42,6 +53,7 @@
 </template>
 
 <script>
+  import apiTask from '../api/task'
   export default {
     name: 'HomeForm',
     props: {
@@ -57,12 +69,26 @@
           tipo: null
         },
         valid: true,
-        overlay: false
+        overlay: false,
+        rules: {
+          required: v => !!v || 'Este campo es requerido',
+          maxTitle: v => v && v.length <= 25 || 'Se ha superado el máximo permitido',
+          maxDescription: v => v && v.length <= 250 || 'Se ha superado el máximo permitido',
+        },
       }
     },
     methods: {
       closeForm () {
         this.$emit('update:show', false)
+      },
+      async saveCard () {
+        if (this.$refs.form.validate()) {
+          const data = {
+            titulo: this.task.titulo,
+            descripcion: this.task.descripcion
+          }
+          await apiTask.createCard(data)
+        }
       }
     }
   }
