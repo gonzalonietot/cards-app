@@ -40,6 +40,9 @@
     <div class="home-form">
       <home-card v-for="(items, index) in tasks" :key="index" :taskObject="items" />
     </div>
+    <div class="container">
+      <h1 v-if="!task.length" class="title">No hay datos para mostrar</h1>
+    </div>
     <home-form v-if="showCard" :show.sync="showCard" @success="loadData()"/>
   </div>
 </template>
@@ -93,5 +96,17 @@
   .home-form {
     display: flex;
     flex-wrap: wrap;
+  }
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+  }
+  .title {
+    font-weight: 700;
+    text-align: center;
   }
 </style>

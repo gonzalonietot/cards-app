@@ -60,6 +60,14 @@
       show: {
         type: Boolean,
         default: false
+      },
+      editCard: {
+        type: Boolean,
+        default: false
+      },
+      selected: {
+        type: Object,
+        default: null
       }
     },
     data () {
@@ -75,6 +83,12 @@
           maxTitle: v => v && v.length <= 25 || 'Se ha superado el máximo permitido',
           maxDescription: v => v && v.length <= 250 || 'Se ha superado el máximo permitido',
         },
+        taskEdited: this.selected
+      }
+    },
+    mounted () {
+      if (this.editCard) {
+        this.task = this.taskEdited
       }
     },
     methods: {
@@ -85,9 +99,14 @@
         if (this.$refs.form.validate()) {
           const data = {
             titulo: this.task.titulo,
-            descripcion: this.task.descripcion
+            descripcion: this.task.descripcion,
+            id: this.task.id
           }
-          await apiTask.createCard(data)
+          if (this.editCard) {
+            await apiTask.editCard(data)
+          } else {
+            await apiTask.createCard(data)
+          }
           this.$emit('success', true)
           this.$emit('update:show', false)
         }
