@@ -38,9 +38,9 @@
       </v-tooltip>
     </v-toolbar>
     <div class="home-form">
-      <home-card v-for="(items, index) in mensaje" :key="index" :message="items" />
+      <home-card v-for="(items, index) in tasks" :key="index" :taskObject="items" />
     </div>
-    <home-form v-if="showCard" :show.sync="showCard" />
+    <home-form v-if="showCard" :show.sync="showCard" @success="loadData()"/>
   </div>
 </template>
 <script>
@@ -55,13 +55,15 @@
     },
     data () {
       return {
-        mensaje: ['HolaHola Hola HolaHola Hola HolaHola Hola Hola Hola Hola HolaHola Hola HolaHola Hola HolaHola Hola Hola Hola Hola HolaHola Hola HolaHola Hola Hola HolaHola Hola HolaHola Hola HolaHola  HolaHola Hola HolaHola Hola HolaHola ',
-          'Chau', 'Hola', 'Chau', 'Hola', 'Chau','Hola', 'Chau'],
-        showCard: false
+        showCard: false,
+        tasks: []
       }
     },
     computed: {
-      ...mapState(['authenticated'])
+      ...mapState(['authenticated', 'task'])
+    },
+    mounted (){
+      this.loadData()
     },
     methods: {
       createCard () {
@@ -72,6 +74,11 @@
           if (!this.authenticated) {
             this.$router.push('/login')
           }
+        })
+      },
+      loadData () {
+        this.$store.dispatch('get_all_task').then(() => {
+          this.tasks = this.task
         })
       }
     }

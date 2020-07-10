@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import userApi from '../api/user'
+import taskApi from '../api/task'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     authenticated: false,
-    authError: null
+    authError: null,
+    task: []
   },
   getters: {
     authenticated: state => state.authenticated,
-    authError: state => state.authError
+    authError: state => state.authError,
+    task: state => state.task
   },
   actions: {
     signIn({ commit }, { email, password }) {
@@ -23,6 +26,13 @@ export default new Vuex.Store({
     },
     signOff({commit}) {
       commit('AuthLogout')
+    },
+    get_all_task({commit}) {
+      return taskApi.getTask().then ((response) => {
+        if (response && response.data) {
+          commit('SET_TASK', response.data)
+        }
+      })
     }
 
   },
@@ -38,6 +48,9 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
       state.authenticated = !!value
       state.authError = null
+    },
+    SET_TASK(state, value) {
+      state.task = value
     }
 
   },

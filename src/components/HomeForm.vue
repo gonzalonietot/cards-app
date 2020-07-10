@@ -88,6 +88,8 @@
             descripcion: this.task.descripcion
           }
           await apiTask.createCard(data)
+          this.$emit('success', true)
+          this.$emit('update:show', false)
         }
       }
     }
