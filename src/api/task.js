@@ -17,9 +17,9 @@ export default {
       }
     })
   },
-  getTask () {
+  getTask (userId) {
     const token = localStorage.getItem('token')
-    return Api.get('api/task/', {
+    return Api.get(`api/task/${userId}`, {
       headers: {
         'access-token' : token
       }

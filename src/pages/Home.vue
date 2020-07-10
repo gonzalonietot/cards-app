@@ -63,7 +63,7 @@
       }
     },
     computed: {
-      ...mapState(['authenticated', 'task'])
+      ...mapState(['authenticated', 'task', 'user'])
     },
     mounted (){
       this.loadData()
@@ -80,8 +80,10 @@
         })
       },
       loadData () {
-        this.$store.dispatch('get_all_task').then(() => {
-          this.tasks = this.task
+        this.$store.dispatch('user_info').then(() => {
+          this.$store.dispatch('get_all_task', {id: this.user[0].id_usuario}).then(() => {
+            this.tasks = this.task
+          })
         })
       }
     }

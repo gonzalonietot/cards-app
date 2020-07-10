@@ -9,12 +9,14 @@ export default new Vuex.Store({
   state: {
     authenticated: false,
     authError: null,
-    task: []
+    task: [],
+    user: []
   },
   getters: {
     authenticated: state => state.authenticated,
     authError: state => state.authError,
-    task: state => state.task
+    task: state => state.task,
+    user: state => state.user
   },
   actions: {
     signIn({ commit }, { email, password }) {
@@ -27,10 +29,17 @@ export default new Vuex.Store({
     signOff({commit}) {
       commit('AuthLogout')
     },
-    get_all_task({commit}) {
-      return taskApi.getTask().then ((response) => {
+    get_all_task({commit}, userId) {
+      return taskApi.getTask(userId.id).then ((response) => {
         if (response && response.data) {
           commit('SET_TASK', response.data)
+        }
+      })
+    },
+    user_info({commit}) {
+      return userApi.userMe().then((response) => {
+        if(response && response.data) {
+          commit('SET_USER', response.data)
         }
       })
     }
@@ -51,6 +60,9 @@ export default new Vuex.Store({
     },
     SET_TASK(state, value) {
       state.task = value
+    },
+    SET_USER(state, value) {
+      state.user = value
     }
 
   },

@@ -54,6 +54,7 @@
 
 <script>
   import apiTask from '../api/task'
+  import { mapState } from 'vuex'
   export default {
     name: 'HomeForm',
     props: {
@@ -86,10 +87,14 @@
         taskEdited: this.selected
       }
     },
-    mounted () {
+    computed: {
+      ...mapState(['user'])
+    },
+    async mounted () {
       if (this.editCard) {
         this.task = this.taskEdited
       }
+      await this.$store.dispatch('user_info')
     },
     methods: {
       closeForm () {
@@ -98,6 +103,7 @@
       async saveCard () {
         if (this.$refs.form.validate()) {
           const data = {
+            id_usuario: this.user[0].id_usuario,
             titulo: this.task.titulo,
             descripcion: this.task.descripcion,
             id: this.task.id

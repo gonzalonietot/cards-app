@@ -9,5 +9,13 @@ export default {
   },
   loginUser(data) {
     return Api.post('api/login/', data)
+  },
+  userMe() {
+    const token = localStorage.getItem('token')
+    return Api.get('api/user/', {
+      headers: {
+        'access-token' : token
+      }
+    })
   }
 }
