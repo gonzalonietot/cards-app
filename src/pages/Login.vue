@@ -1,5 +1,5 @@
 <template>
-  <login-form v-on:create="createAccount" />
+  <login-form @create="createAccount" />
 </template>
 
 <script>

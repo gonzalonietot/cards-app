@@ -1,27 +1,32 @@
 import Api from './config_axios'
+import { token } from '../utils/token'
 
 export default {
   createCard (data) {
-    const token = localStorage.getItem('token')
     return Api.post('api/task/', data, {
       headers: {
-        'access-token' : token
+        'access-token' : token()
       }
     })
   },
   editCard(data) {
-    const token = localStorage.getItem('token')
     return Api.put('api/task/', data , {
       headers: {
-        'access-token' : token
+        'access-token' : token()
+      }
+    })
+  },
+  deleteTask (taskId) {
+    return Api.delete(`api/task/${taskId}`, {
+      headers: {
+        'access-token' : token()
       }
     })
   },
   getTask (userId) {
-    const token = localStorage.getItem('token')
     return Api.get(`api/task/${userId}`, {
       headers: {
-        'access-token' : token
+        'access-token' : token()
       }
     })
   },

@@ -24,8 +24,8 @@
             </v-toolbar>
             <v-card-text>
               <v-form
-                  ref="form"
-                  lazy-validation
+                ref="form"
+                lazy-validation
               >
                 <v-text-field
                   v-model="email"

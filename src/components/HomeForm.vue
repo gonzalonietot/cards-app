@@ -2,17 +2,23 @@
   <v-row justify="center">
     <v-overlay :value="true">
       <v-dialog
-          v-model="showDialog"
-          width="500"
-          persistent
+        v-model="showDialog"
+        width="500"
+        persistent
       >
         <v-card class="elevation-24"
-                flat>
+                flat
+        >
           <v-toolbar
-              color="#3F51B5"
-              dark
+            color="#3F51B5"
+            dark
           >
-            <v-toolbar-title>Crear tarjeta</v-toolbar-title>
+            <v-toolbar-title v-if="!editCard">
+              Crear tarjeta
+            </v-toolbar-title>
+            <v-toolbar-title v-if="editCard">
+              Editar tarjeta
+            </v-toolbar-title>
             <v-spacer />
             <v-btn icon @click="closeForm">
               <v-icon>mdi-close</v-icon>
@@ -20,23 +26,23 @@
           </v-toolbar>
           <v-card-text>
             <v-form
-                v-model="valid"
-                ref="form"
-                lazy-validation
+              ref="form"
+              v-model="valid"
+              lazy-validation
             >
               <v-text-field
-                  v-model="task.titulo"
-                  label="Título"
-                  required
-                  type="text"
-                  :rules="[rules.required, rules.maxTitle]"
+                v-model="task.titulo"
+                label="Título"
+                required
+                type="text"
+                :rules="[rules.required, rules.maxTitle]"
               />
               <v-textarea
-                  v-model="task.descripcion"
-                  label="Descripcion"
-                  type="text"
-                  required
-                  :rules="[rules.required, rules.maxDescription]"
+                v-model="task.descripcion"
+                label="Descripcion"
+                type="text"
+                required
+                :rules="[rules.required, rules.maxDescription]"
               />
             </v-form>
           </v-card-text>

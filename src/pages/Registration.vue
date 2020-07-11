@@ -1,5 +1,5 @@
 <template>
-  <registration-form v-on:success="createdUser" />
+  <registration-form @success="createdUser" />
 </template>
 
 <script>

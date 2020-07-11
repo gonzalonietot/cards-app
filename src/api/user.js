@@ -1,4 +1,5 @@
 import Api from './config_axios'
+import { token } from '../utils/token'
 
 export default {
   createUser (data) {
@@ -11,10 +12,9 @@ export default {
     return Api.post('api/login/', data)
   },
   userMe() {
-    const token = localStorage.getItem('token')
     return Api.get('api/user/', {
       headers: {
-        'access-token' : token
+        'access-token' : token()
       }
     })
   }

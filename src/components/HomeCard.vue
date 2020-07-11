@@ -2,37 +2,39 @@
   <div>
     <v-card class="card-form elevation-24">
       <v-toolbar
-          color="#3F51B5"
-          dark
+        color="#3F51B5"
+        dark
       >
-        <v-toolbar-title>{{task.titulo}}</v-toolbar-title>
+        <v-toolbar-title>{{ task.titulo }}</v-toolbar-title>
         <v-spacer />
         <v-btn icon @click="editTask()">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon @click="deleteTask">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-toolbar>
       <v-list
-          subheader
+        subheader
       >
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Descripción:</v-list-item-title>
-            <v-list-item-action-text>{{task.descripcion}}</v-list-item-action-text>
+            <v-list-item-action-text>{{ task.descripcion }}</v-list-item-action-text>
           </v-list-item-content>
         </v-list-item>
         <v-divider />
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Fecha de creción:</v-list-item-title>
-            <v-list-item-subtitle class="text--primary">{{creationDate(task.fecha_creacion)}}</v-list-item-subtitle>
+            <v-list-item-subtitle class="text--primary">
+              {{ creationDate(task.fecha_creacion) }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-card>
-    <home-form v-if="editCard" :show.sync="editCard" :selected="task" :edit-card="true"/>
+    <home-form v-if="editCard" :show.sync="editCard" :selected="task" :edit-card="true" />
   </div>
 </template>
 
@@ -53,7 +55,8 @@
     data () {
       return {
         task: this.taskObject,
-        editCard: false
+        editCard: false,
+        dialog: false,
       }
     },
     methods: {
@@ -62,6 +65,10 @@
       },
       editTask () {
         this.editCard = true
+      },
+      deleteTask () {
+        this.taskId = this.task.id
+        this.$emit('delete', this.taskId)
       },
     }
   }

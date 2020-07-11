@@ -45,9 +45,9 @@
                   v-model="user.email"
                   label="Email"
                   :rules="rules.emailRules"
-                  @blur="checkUser"
                   name="email"
                   required
+                  @blur="checkUser"
                 />
                 <v-text-field
                   v-model="user.password"
@@ -58,7 +58,7 @@
                   :type="showPassword ? 'text' : 'password'"
                   @click:append="showPassword = !showPassword"
                 />
-                <v-alert type="error" v-model="userExists">
+                <v-alert v-model="userExists" type="error">
                   Ya existe un usuario con estos datos
                 </v-alert>
               </v-form>
@@ -74,28 +74,28 @@
       </v-row>
     </v-container>
     <v-snackbar
-        v-model="successUser"
-        :bottom="y === 'bottom'"
-        :color="color"
-        :left="x === 'left'"
-        :multi-line="mode === 'multi-line'"
-        :right="x === 'right'"
-        :timeout="timeout"
-        :top="y === 'top'"
-        :vertical="mode === 'vertical'"
+      v-model="successUser"
+      :bottom="y === 'bottom'"
+      :color="color"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :right="x === 'right'"
+      :timeout="timeout"
+      :top="y === 'top'"
+      :vertical="mode === 'vertical'"
     >
       Usuario creado
     </v-snackbar>
     <v-snackbar
-        v-model="errorUser"
-        :bottom="y === 'bottom'"
-        :color="color"
-        :left="x === 'left'"
-        :multi-line="mode === 'multi-line'"
-        :right="x === 'right'"
-        :timeout="timeout"
-        :top="y === 'top'"
-        :vertical="mode === 'vertical'"
+      v-model="errorUser"
+      :bottom="y === 'bottom'"
+      :color="color"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :right="x === 'right'"
+      :timeout="timeout"
+      :top="y === 'top'"
+      :vertical="mode === 'vertical'"
     >
       Falló el registro del usuario
     </v-snackbar>

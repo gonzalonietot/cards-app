@@ -1,36 +1,40 @@
 <template>
   <div>
     <v-toolbar
-        data-app
-        dark
-        prominent
-        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      data-app
+      dark
+      prominent
+      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
-      <v-toolbar-title class="home-title">Tablero</v-toolbar-title>
+      <v-toolbar-title class="home-title">
+        Tablero
+      </v-toolbar-title>
       <v-spacer />
       <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn icon @click="createCard()">
             <v-icon
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-            >mdi-plus
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              mdi-plus
             </v-icon>
           </v-btn>
         </template>
         <span>Crear tarjeta</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn icon @click="toClose()">
             <v-icon
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-            >mdi-close-box-multiple
+              color="primary"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              mdi-close-box-multiple
             </v-icon>
           </v-btn>
         </template>
@@ -38,28 +42,35 @@
       </v-tooltip>
     </v-toolbar>
     <div class="home-form">
-      <home-card v-for="(items, index) in tasks" :key="index" :taskObject="items" />
+      <home-card v-for="items in tasks" :key="items.id" :task-object="items" @delete="deleteTask" />
     </div>
     <div class="container">
-      <h1 v-if="!task.length" class="title">No hay datos para mostrar</h1>
+      <h1 v-if="!task.length" class="title">
+        No hay datos para mostrar
+      </h1>
     </div>
-    <home-form v-if="showCard" :show.sync="showCard" @success="loadData()"/>
+    <home-form v-if="showCard" :show.sync="showCard" @success="loadData()" />
+    <delete-card v-if="showDialogDelete" :show.sync="showDialogDelete" :task-id="taskId" @success="loadData" />
   </div>
 </template>
 <script>
   import { mapState } from 'vuex'
   import HomeCard from '../components/HomeCard'
   import HomeForm from '../components/HomeForm'
+  import DeleteCard from '../components/DeleteCard'
   export default {
     name: 'Home',
     components: {
       HomeForm,
-      HomeCard
+      HomeCard,
+      DeleteCard
     },
     data () {
       return {
         showCard: false,
-        tasks: []
+        tasks: [],
+        showDialogDelete: false,
+        taskId: null
       }
     },
     computed: {
@@ -78,6 +89,10 @@
             this.$router.push('/login')
           }
         })
+      },
+      deleteTask (v) {
+        this.taskId = v
+        this.showDialogDelete = true
       },
       loadData () {
         this.$store.dispatch('user_info').then(() => {
