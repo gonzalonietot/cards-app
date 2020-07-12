@@ -13,7 +13,7 @@ Tech stack:
 
 Screen: 
 
-![Les presento mi proyecto](https://raw.githubusercontent.com/gnieto11/login-fron/master/src/assets/Login.PNG)
+![Les presento mi proyecto](https://raw.githubusercontent.com/gnieto11/login-front/master/src/assets/Login.PNG)
 
 Clone Project:
 ```
