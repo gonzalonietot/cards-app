@@ -10,11 +10,6 @@ Tech stack:
 * Vuex
 * Vuetify
 
-
-Screen: 
-
-![Les presento mi proyecto](https://raw.githubusercontent.com/gnieto11/login-front/master/src/assets/Login.PNG)
-
 Clone Project:
 ```
 git clone https://github.com/gnieto11/login-front.git
