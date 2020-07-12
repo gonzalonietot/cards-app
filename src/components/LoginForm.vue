@@ -35,7 +35,7 @@
                   :append-icon="'mdi-account'"
                   type="text"
                 />
-                <v-text-field
+                <v-text-field 
                   v-model="password"
                   label="Contraseña"
                   name="password"
@@ -44,7 +44,7 @@
                   :type="showPassword ? 'text' : 'password'"
                   @click:append="showPassword = !showPassword"
                 />
-                <v-alert type="error" v-model="wrongEmailOrPassword">
+                <v-alert v-model="wrongEmailOrPassword" type="error">
                   Email o contraseña incorrectos
                 </v-alert>
               </v-form>
