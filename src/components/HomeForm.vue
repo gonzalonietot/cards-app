@@ -1,6 +1,9 @@
 <template>
   <v-row justify="center">
-    <v-overlay :value="true">
+    <v-overlay 
+      :value="true"
+      z-index="20"
+    >
       <v-dialog
         v-model="showDialog"
         width="500"
