@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="card-form elevation-24">
+    <v-card class="card-form elevation-24" :disabled="disabled">
       <v-toolbar
         color="#3F51B5"
         dark
@@ -50,6 +50,10 @@
       taskObject: {
         type: Object,
         default: null
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     data () {

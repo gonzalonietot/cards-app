@@ -42,7 +42,7 @@
       </v-tooltip>
     </v-toolbar>
     <div class="home-form">
-      <home-card v-for="items in tasks" :key="items.id" :task-object="items" @delete="deleteTask" />
+      <home-card v-for="items in tasks" :key="items.id" :task-object="items" :disabled="showDialogDelete || showCard " @delete="deleteTask" />
     </div>
     <div class="container">
       <h1 v-if="!task.length" class="title">

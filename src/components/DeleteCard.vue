@@ -1,40 +1,36 @@
 <template>
-  <v-row justify="center">
-    <v-overlay 
-      :value="true"
-      z-index="20"
+  <v-row justify="center"> 
+    <v-dialog
+      v-model="dialog"
+      max-width="290"
+      persistent
     >
-      <v-dialog
-        v-model="dialog"
-        max-width="290"
-      >
-        <v-card>
-          <v-toolbar
-            color="#3F51B5"
-            dark
+      <v-card>
+        <v-toolbar
+          color="#3F51B5"
+          dark
+        >
+          <v-toolbar-title>Eliminar tarjeta</v-toolbar-title>
+          <v-spacer />
+          <v-btn icon @click="closeDelete">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-card-text class="title">
+          ¿Estás seguro de eliminar la tarjeta?
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="green darken-1"
+            text
+            @click="deleteCard"
           >
-            <v-toolbar-title>Eliminar tarjeta</v-toolbar-title>
-            <v-spacer />
-            <v-btn icon @click="closeDelete">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-toolbar>
-          <v-card-text class="title">
-            ¿Estás seguro de eliminar la tarjeta?
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn
-              color="green darken-1"
-              text
-              @click="deleteCard"
-            >
-              <v-icon>mdi-content-save</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-overlay>
+            <v-icon>mdi-content-save</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
