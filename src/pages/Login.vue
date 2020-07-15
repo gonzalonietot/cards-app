@@ -1,5 +1,6 @@
 <template>
-  <login-form @create="createAccount" />
+  <login-form 
+    @create="createAccount" />
 </template>
 
 <script>

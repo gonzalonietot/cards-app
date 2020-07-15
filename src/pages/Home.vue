@@ -1,56 +1,79 @@
 <template>
   <div>
-    <v-toolbar
+    <v-dialog
+      v-model="dialog"
+      fullscreen
       data-app
-      dark
-      prominent
-      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      :no-click-animation="true"
     >
-      <v-toolbar-title class="home-title">
-        Tablero
-      </v-toolbar-title>
-      <v-spacer />
-      <v-tooltip bottom>
-        <template #activator="{ on, attrs }">
-          <v-btn icon @click="createCard()">
-            <v-icon
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              mdi-plus
-            </v-icon>
-          </v-btn>
-        </template>
-        <span>Crear tarjeta</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template #activator="{ on, attrs }">
-          <v-btn icon @click="toClose()">
-            <v-icon
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              mdi-close-box-multiple
-            </v-icon>
-          </v-btn>
-        </template>
-        <span>Cerrar sesión</span>
-      </v-tooltip>
-    </v-toolbar>
-    <div class="home-form">
-      <home-card v-for="items in tasks" :key="items.id" :task-object="items" :disabled="showDialogDelete || showCard " @delete="deleteTask" />
-    </div>
-    <div class="container">
-      <h1 v-if="!task.length" class="title">
-        No hay datos para mostrar
-      </h1>
-    </div>
-    <home-form v-if="showCard" :show.sync="showCard" @success="loadData()" />
-    <delete-card v-if="showDialogDelete" :show.sync="showDialogDelete" :task-id="taskId" @success="loadData" />
+      <v-toolbar
+        dark
+        prominent
+        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      >
+        <v-toolbar-title class="home-title">
+          Tablero
+        </v-toolbar-title>
+        <v-spacer />
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn icon @click="createCard()">
+              <v-icon
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                mdi-plus
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Crear tarjeta</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn icon @click="toClose()">
+              <v-icon
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                mdi-close-box-multiple
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Cerrar sesión</span>
+        </v-tooltip>
+      </v-toolbar>
+      <div class="home-form">
+        <home-card
+          v-for="items in tasks"
+          :key="items.id"
+          :task-object="items"
+          @delete="deleteTask"
+          @edit="editCard"
+        />
+      </div>
+      <div class="container">
+        <h1 v-if="!task.length" class="title">
+          No hay datos para mostrar
+        </h1>
+      </div>
+    </v-dialog>
+    <home-form
+      v-if="showCard"
+      :show.sync="showCard"
+      :edit-card="edit"
+      :selected="taskEdit"
+      @success="loadData()"
+    />
+    <delete-card
+      v-if="showDialogDelete"
+      :show.sync="showDialogDelete"
+      :task-id="taskId"
+      @success="loadData"
+    />
   </div>
 </template>
 <script>
@@ -67,10 +90,13 @@
     },
     data () {
       return {
+        dialog: true,
         showCard: false,
         tasks: [],
         showDialogDelete: false,
-        taskId: null
+        taskId: null,
+        taskEdit: {},
+        edit: false
       }
     },
     computed: {
@@ -81,11 +107,13 @@
     },
     methods: {
       createCard () {
+        this.taskEdit = {}
         this.showCard = true
       },
       toClose () {
         this.$store.dispatch('signOff').then(() => {
           if (!this.authenticated) {
+            this.dialog = false
             this.$router.push('/login')
           }
         })
@@ -93,6 +121,11 @@
       deleteTask (v) {
         this.taskId = v
         this.showDialogDelete = true
+      },
+      editCard (v) {
+        this.edit = true
+        this.taskEdit = v
+        this.showCard = true
       },
       loadData () {
         this.$store.dispatch('user_info').then(() => {

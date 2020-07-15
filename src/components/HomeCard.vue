@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="card-form elevation-24" :disabled="disabled">
+    <v-card class="card-form elevation-24">
       <v-toolbar
         color="#3F51B5"
         dark
@@ -34,32 +34,22 @@
         </v-list-item>
       </v-list>
     </v-card>
-    <home-form v-if="editCard" :show.sync="editCard" :selected="task" :edit-card="true" />
   </div>
 </template>
 
 <script>
   import moment from 'moment'
-  import HomeForm from './HomeForm'
   export default {
     name: 'HomeCard',
-    components: {
-      HomeForm
-    },
     props: {
       taskObject: {
         type: Object,
         default: null
       },
-      disabled: {
-        type: Boolean,
-        default: false
-      }
     },
     data () {
       return {
         task: this.taskObject,
-        editCard: false,
         dialog: false,
       }
     },
@@ -68,7 +58,7 @@
         return moment(date).format('YYYY-MM-DD hh:mm')
       },
       editTask () {
-        this.editCard = true
+        this.$emit('edit', this.task)
       },
       deleteTask () {
         this.taskId = this.task.id

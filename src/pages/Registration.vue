@@ -1,5 +1,6 @@
 <template>
-  <registration-form @success="createdUser" />
+  <registration-form 
+    @success="createdUser" />
 </template>
 
 <script>
