@@ -1,10 +1,6 @@
 <template>
   <div>
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      data-app
-      :no-click-animation="true"
+    <template
     >
       <v-toolbar
         dark
@@ -60,7 +56,7 @@
           No hay datos para mostrar
         </h1>
       </div>
-    </v-dialog>
+    </template>
     <home-form
       v-if="showCard"
       :show.sync="showCard"
@@ -107,6 +103,7 @@
     },
     methods: {
       createCard () {
+        this.edit = false
         this.taskEdit = {}
         this.showCard = true
       },

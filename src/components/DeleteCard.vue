@@ -4,6 +4,7 @@
       v-model="dialog"
       max-width="290"
       persistent
+      data-app
     >
       <v-card>
         <v-toolbar

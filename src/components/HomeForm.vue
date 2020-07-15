@@ -1,6 +1,7 @@
 <template>
   <v-dialog
     v-model="showDialog"
+    data-app
     max-width="500"
     persistent
   >
